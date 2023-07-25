@@ -32,7 +32,13 @@
                                         <fieldset id="account">
                                             <div class="form-group required">
                                                 <label for="" class="control-label"></label>
-                                                    <input type="hidden" name="users_id" id="" value="{{ auth()->user()->name}}" class="form-control">                                             </div>
+                                                    <input type="hidden" name="users_id" id="" value="{{ auth()->user()->name}}" class="form-control">  
+                                            </div>
+                                            <div class="form-group required">
+                                                {{-- <label for="status_pengiriman" class="control-label">Status Pengiriman</label> --}}
+                                                <input type="hidden" name="status_pengiriman" id="status_pengiriman" value="Sedang Diproses">
+                                                <!-- The hidden input field above sets the default value to 'Sedang Diproses' -->
+                                            </div>
                                             <div class="form-group required">
                                                 <label for="" class="control-label">Full
                                                     Name</label>
@@ -105,19 +111,16 @@
                                                                 <td class="text-right">Total</td>
                                                             </tr>
                                                         </thead>
-                                                        <tbody id="wishlist-body-to-identify">
-                                                                <tr>
+                                                        <tbody id="cart-item-list">
                                                                     <td class="text-right">
-                                                                        <a style="text-decoration: none; color: inherit;">{{ $data->name }}</a>
-                                                                        {{-- <input type="text" name="name" value="{{ $data->name }}" id="" class="form-control">  --}}
+                                                                        <input type="text" name="name" value="{{ $data->name }}" id="" class="form-control"> 
                                                                     </td>
                                                                     <td class="text-right">
-                                                                        <a style="text-decoration: none; color: inherit;">{{number_format($data->price,0,",",".")}}</a>
-                                                                        {{-- <input type="text-right" name="price" value="{{number_format($data->price,0,",",".")}}" id="" class="form-control"> --}}
+                                                                        <input type="text-right" name="price" value="{{number_format($data->price,0,",",".")}}" id="" class="form-control">
                                                                     </td>
+                                                                </td>
                                                                     <td class="text-right">
-                                                                        <a style="text-decoration: none; color: inherit;">{{number_format($data->price,0,",",".")}}</a>
-                                                                        {{-- <input type="text" name="price" value="{{number_format($data->price,0,",",".")}}" id="" class="form-control"> --}}
+                                                                        <input type="text" name="price" value="{{number_format($data->price,0,",",".")}}" id="" class="form-control">
                                                                     </td>
                                                                 </tr>
                                                         </tbody>

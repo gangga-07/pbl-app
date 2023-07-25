@@ -28,19 +28,6 @@
                 </div>
             </div>
             <div class="hidden md:block mx-auto text-slate-500"></div>
-            {{-- <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                <div class="w-56 relative text-slate-500">
-                    <form action="" method="get" id="form-search-product">
-                        <div class="flex justify-between align-center">
-                            <input type="text" name="search" class="form-control w-56 box pr-10" style="border-top-right-radius: 0!important;
-                             border-bottom-right-radius: 0!important;" placeholder="Search...">
-                            <button type="submit" class="bg-[#2d2d2d]"><i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" style="border-top-right-radius: 0.25rem!important;
-                             border-bottom-right-radius: 0.25rem!important;" data-lucide="search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div> --}}
         </div>
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -50,57 +37,52 @@
                         <th class="text-center whitespace-nowrap">No.</th>
                         <th class="text-center whitespace-nowrap">PEMBELI</th>
                         <th class="text-center whitespace-nowrap">PRODUK</th>
-                        {{-- <th class="text-center whitespace-nowrap">PHONE</th> --}}
-                        {{-- <th class="text-center whitespace-nowrap">EMAIL</th> --}}
                         <th class="text-center whitespace-nowrap">HARGA</th>
                         <th class="text-center whitespace-nowrap">TANGGAL</th>
-                        <th class="text-center whitespace-nowrap">STATUS PEMBAYARAN</th>
+                        <th class="text-center whitespace-nowrap">PEMBAYARAN</th>
+                        <th class="text-center whitespace-nowrap">PENGIRIMAN</th>
                         <th class="text-center whitespace-nowrap">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($order as $item)
-                     <tr class="intro-x">
-                        <td class="text-center w-40"> {{ $loop->iteration }} </td>
-                        <td class="text-center w-40">{{ $item->pembeli }} </td>
-                        <td class="text-center">{{ $item->name }}</td>
-                        {{-- <td class="text-center">{{ $item->phone }}</td> --}}
-                        {{-- <td class="text-center">{{ $item->email }}</td> --}}
-                        <td class="text-center">Rp. {{ $item->price }}</td>
-                        <td class="text-center">{{ $item->tanggal }}</td>
-                        <td class="text-center">{{ $item->status }}</td>
-                        <td class="hidden">{{ $item->users_id }}</td>
-                        <td class="table-report__action w-56">
-                            <div class="flex justify-center items-center">
-                                <a class="flex items-center mr-3" href="{{ route('manage_order.detail', ['order' => $item]) }}"> <i data-lucide="eye" class="w-4 h-4 mr-1"></i> Detail </a>
-                                <a class="flex items-center mr-3" href="{{ route('manage_order.update', ['order' => $item]) }}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                <form method="POST" action="{{ route('manage_order.delete', ['order'=>$item]) }}">
-                                    <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{$item}})"><i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete</button>
-                                    @method('DELETE')
-                                    {{ csrf_field() }} 
-                                </form>
-                            </div>
-                        </td>
-                    </tr>   
+                        <tr class="intro-x">
+                            <td class="text-center w-40"> {{ $loop->iteration }} </td>
+                            <td class="text-center w-40">{{ $item->pembeli }} </td>
+                            <td class="text-center">{{ $item->name }}</td>
+                            <td class="text-center">Rp. {{ $item->price }}</td>
+                            <td class="text-center">{{ $item->tanggal }}</td>
+                            <td class="text-center">{{ $item->status }}</td>
+                            <td class="text-center">
+                                <div class="flex items-center">
+                                    <span>{{ $item->status_pengiriman }}</span>
+                                    <a class="flex items-center ml-3 toggle-icon" href="{{ route('status_pengiriman', ['order' => $item]) }}">
+                                        <i data-lucide="check-square" class="w-4 h-4 mr-1 icon"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="hidden">{{ $item->users_id }}</td>
+                            <td class="table-report__action w-56">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center mr-3" href="{{ route('manage_order.detail', ['order' => $item]) }}"> <i data-lucide="eye" class="w-4 h-4 mr-1"></i> Detail </a>
+                                    {{-- <a class="flex items-center mr-3" href="{{ route('manage_order.update', ['order' => $item]) }}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a> --}}
+                                    <form method="POST" action="{{ route('manage_order.delete', ['order'=>$item]) }}">
+                                        <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{$item}})"><i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete</button>
+                                        @method('DELETE')
+                                        {{ csrf_field() }} 
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>   
                     @empty
-                    <tr>
-                        <td class="text-center text-muted" colspan="8">No Data</td>
-                    </tr>
+                        <tr>
+                            <td class="text-center text-muted" colspan="8">No Data</td>
+                        </tr>
                     @endforelse
-                    
-                    
                 </tbody>
             </table>
         </div>
         <!-- END: Data List -->
-        <!-- BEGIN: Pagination -->
-        {{-- <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-            <nav class="w-full sm:w-auto sm:mr-auto">
-                 {{ $order->links('fragments.pagination') }}
-            </nav>
-        </div> --}}
-        <!-- END: Pagination -->
-
         <!-- BEGIN: Pagination -->
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
@@ -141,4 +123,20 @@
 @endsection
 @section('script')
    <script src="{{ asset('dist/js/view/manage-order/order.js') }}"></script> 
+   <script>
+    $(document).ready(function () {
+        // Function to handle the click event for the icon
+        $(".toggle-icon").on("click", function (e) {
+            e.preventDefault();
+            const icon = $(this).find(".icon");
+            icon.addClass("text-red-500"); // Add the red color class
+            setTimeout(function () {
+                // Hapus elemen icon dari DOM setelah 1 detik
+                icon.remove();
+            }, 1000); // Adjust the delay time (in milliseconds) as needed
+            // Anda dapat melakukan tindakan lain di sini jika diperlukan setelah mengklik.
+            // Misalnya, Anda dapat menggunakan AJAX untuk melakukan beberapa operasi server-side.
+        });
+    });
+</script>
 @endsection

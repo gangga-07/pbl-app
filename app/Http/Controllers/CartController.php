@@ -22,12 +22,12 @@ class CartController extends Controller
         return view('frontpage.cart.cart-all', $data, compact('car'));
     }
 
-    public function showPaymentForm($id)
-    {
-        $data = Product::find($id);
+    // public function showPaymentForm($id)
+    // {
+    //     $data = Product::find($id);
 
-        return view('frontpage.cart.cart', compact('data'));
-    }
+    //     return view('frontpage.cart.cart', compact('data'));
+    // }
 
     // public function cart(Request $request)
     // {

@@ -2,7 +2,7 @@
 
 @section('dashboard-content')
     <h2 class="intro-y text-lg font-medium mt-10">
-        My Whislist
+        My Wishlist
     </h2>
     <ul class="breadcrumb mt-2">
         <li><a href="{{ route('main') }}"><i class="fa fa-home mr-1"></i></a></li>
@@ -24,8 +24,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($wish as $index => $item)
-                        <tr class="intro-x">
+                    @forelse ($whislist as $index => $item)
+                        <tr class="intro-x" id="row-{{ $index }}">
                             <td class="text-center w-20">{{ $loop->iteration }}</td>
                             <td class="text-center">
                                 <a href="product.html">
@@ -36,11 +36,8 @@
                             <td class="text-center">Rp. {{ number_format($item->product->price, 0, ',', '.') }}</td>
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
-                                    {{-- <a class="flex items-center mr-3" href="{{ route('product-detail', ['product' => $item->product_id]) }}">
-                                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i> Detail
-                                    </a> --}}
                                     <form method="POST" action="{{ route('manage_whislist.delete',['whislist'=>$item]) }}">
-                                        <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{ $index }})">
+                                        <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{ $item->id }})">
                                             <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete
                                         </button>
                                         @method('DELETE')
@@ -62,41 +59,7 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="w-4 h-4" data-lucide="chevrons-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">...</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">...</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="w-4 h-4" data-lucide="chevrons-right"></i>
-                        </a>
-                    </li>
+                    <!-- Pagination Links Here -->
                 </ul>
             </nav>
             <select class="w-20 form-select box mt-3 sm:mt-0">
@@ -135,9 +98,9 @@
 
 @section('script')
 <script>
-    function deleteModalHandler(index) {
+    function deleteModalHandler(id) {
         var deleteUrl = "{{ route('manage_cart.delete', ['cart' => ':cartId']) }}";
-        deleteUrl = deleteUrl.replace(':cartId', index);
+        deleteUrl = deleteUrl.replace(':cartId', id);
         $('#delete_route_input').val(deleteUrl);
     }
 
@@ -164,13 +127,8 @@
                         },
                         success: function(response) {
                             Swal.fire('Sukses', response.message, 'success');
-                            // Lakukan sesuatu setelah berhasil menghapus data, seperti menghapus baris tabel
-                            // atau memuat ulang halaman jika diperlukan
-                            // Contoh:
-                            // - Hapus baris tabel secara langsung:
-                            $('#row-' + index).remove();
-                            // - Muat ulang halaman:
-                            window.location.reload();
+                            // Hapus baris tabel dari HTML setelah berhasil menghapus data
+                            $('#row-' + id).remove();
                         },
                         error: function(xhr, status, error) {
                             console.log(error);

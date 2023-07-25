@@ -52,13 +52,6 @@
                             </td>
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
-                                    @if ($item->product)
-                                    {{-- <a class="flex items-center mr-3" href="{{ url('detail-cart/'.$item->product_code) }}">
-                                        <i data-lucide="shopping-cart" class="w-4 h-4 mr-1"></i> Bayar
-                                    </a> --}}
-                                    @else
-                                        <span class="text-red-500">Product Unavailable</span>
-                                    @endif
                                     <form method="POST" action="{{ route('manage_cart.delete',['cart'=>$item]) }}">
                                         <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{ $index }})">
                                             <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete

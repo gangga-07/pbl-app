@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendEmail;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
@@ -11,6 +12,7 @@ use Dompdf\Dompdf;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Snap;
 use PDF;
@@ -99,17 +101,67 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'order.*.product' => 'required|string',
+    //         'order.*.amount' => 'required|numeric',
+    //         'order.*.price' => 'required|numeric',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return redirect()->back()->with('error', 'Something Error With Your Input!')->withInput()->withErrors($validator);
+    //     }
+    // }
+
     public function store(Request $request)
     {
+        // Validate the request data
         $validator = Validator::make($request->all(), [
-            'order.*.product' => 'required|string',
-            'order.*.amount' => 'required|numeric',
-            'order.*.price' => 'required|numeric',
+            'product_code' => 'required|string|unique:products,product_code',
+            'pembeli' => 'required|string',
+            'email' => 'required|email',
+            'no_tlp' => 'required|integer',
+            'tanggal' => 'required|date',
         ]);
 
+        // If validation fails, redirect back with error messages and input data
         if ($validator->fails()) {
-            return redirect()->back()->with('error', 'Something Error With Your Input!')->withInput()->withErrors($validator);
+            return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Input Failed!<br>Please Try Again With Correct Input');
         }
+
+        // If validation passes, create the new order
+        $orderData = $validator->validated();
+
+        // Set the default value for status_pengiriman
+        $status_pengiriman = 'Sedang Diproses';
+
+        // Assuming you have an Order model and it has a create method
+        $newOrder = Order::create([
+            'product_code' => $orderData['product_code'],
+            'pembeli' => $orderData['pembeli'],
+            'email' => $orderData['email'],
+            'no_tlp' => $orderData['no_tlp'],
+            'tanggal' => $orderData['tanggal'],
+            'status_pengiriman' => $status_pengiriman,
+        ]);
+
+        // Check if the order was successfully created and redirect accordingly
+        if ($newOrder) {
+            return redirect()->route('manage_order.all')->with('success', 'New Order Successfully Created');
+        }
+
+        // If the creation fails, redirect back with an error message
+        return redirect()->back()->with('error', 'Error Occurred, Please Try Again');
+    }
+
+    // UPDATE STATUS PENGIRIMAN PRODUK BY ADMIN
+    function status_pengiriman($id)
+    {
+        $status_pengiriman = Order::find($id);
+        $status_pengiriman->status_pengiriman = 'Terkirim';
+        $status_pengiriman->save();
+        return redirect()->route('manage_order.all')->with('success', 'Product Aplikasi Telah Terkirim Via E-Mail');
     }
 
     public function delete(Order $order)
@@ -153,10 +205,12 @@ class OrderController extends Controller
             'email' => 'required|integer',
             'no_tlp' => 'required|integer',
             'tanggal' => 'required|integer',
+
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Input Failed!<br>Please Try Again With Correct Input');
         }
+        $status_pengiriman = 'Sedang Diproses';
         $validated = $validator->validated();
         $order->touch();
         $updated_order = $order->update([
@@ -164,6 +218,7 @@ class OrderController extends Controller
             'email' => $validated['email'],
             'no_tlp' => $validated['no_tlp'],
             'tanggal' => $validated['tanggal'],
+            'status_pengiriman' => $status_pengiriman,
         ]);
         if ($updated_order) {
             return redirect()->route('manage_order.all')->with('success', 'New Order Successfully Updated');
@@ -243,6 +298,18 @@ class OrderController extends Controller
 
         // Menghasilkan file PDF dan mengirimkan ke browser
         $dompdf->stream('invoice.pdf', ['Attachment' => false]);
+    }
+
+    // KIRIM EMAIL DARI ADMIN KE USER
+    public function sendInvoice(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        // Kirim email konfirmasi
+
+        Mail::to($request->recipient_email) // Menggunakan alamat email penerima dari input form
+            ->send(new SendEmail($order));
+
+        return redirect()->route('manage_order.all')->with('success', 'Konfirmasi pesanan berhasil');
     }
 
 

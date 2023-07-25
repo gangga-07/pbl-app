@@ -57,8 +57,7 @@
             </div>
             <div class="row mb-3">
               <div class="col-5 label">Tanggal Pembelian:</div>
-              {{-- <div class="col-7">{{ $order->tanggal }}</div> --}}
-              <div class="col-7">{{ date('d M Y', strtotime($order->tanggal)) }}</div>
+              <div class="col-7">{{ $order->tanggal }}</div>
             </div>
             <div class="row mb-3">
               <div class="col-5 label">Nama Produk:</div>

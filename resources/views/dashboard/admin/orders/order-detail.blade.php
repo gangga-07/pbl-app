@@ -43,8 +43,21 @@
                             <p class="basis-2/3 text-sm mb-2">: Rp. {{ $order->price }}</p>
                         </div>
                         <div class="flex flex-row flex-none gap-2">
-                            <label for="status" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Status</label>
+                            <label for="status" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Status Pembayaran</label>
                             <p class="basis-2/3 text-sm mb-2">: {{ $order->status }}</p>
+                        </div>
+                        <div class="flex flex-row flex-none gap-2">
+                            <label for="status" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Status Pengiriman Produk</label>
+                            <p class="basis-2/3 text-sm mb-2">: {{ $order->status_pengiriman }}</p>
+                        </div>
+                        <div>
+                            <form action="{{ route('send_invoice', $order->id) }}" method="POST">
+                                @csrf
+                                <div class="hidden">
+                                    <input type="email" name="recipient_email" value="{{ $order->email }}" id="">
+                                </div>
+                                <input type="submit" value="Kirim Invoice">
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,7 @@
                                 </h4>
                             </td>
                             <td class="text-right">
-                                <strong>Date: {{ $order->tanggal }}</strong>
+                                <strong>Date: {{ date('l, d F Y', strtotime($order->tanggal)) }}</strong>
                             </td>
                         </tr>
                     </table>
