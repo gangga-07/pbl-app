@@ -8,18 +8,20 @@ use App\Models\Order;
 use App\Models\Product;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View; // Import the View facade
 use Midtrans\Snap;
 use PDF;
 use TCPDF;
 
 
-class OrderController extends Controller
+class OrderController extends DomPDFPDF
 {
     public function index($id)
     {
@@ -30,12 +32,10 @@ class OrderController extends Controller
 
     public function checkout(Request $request)
     {
-        // dd($request);
-        // dd($request->toArray());
+        // Continue with the checkout process if validation passes
         $request->request->add(['status' => 'unpaid']);
-        //SAMPLE REQUEST START HERE
-
         $order = Order::create($request->all());
+
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = 'SB-Mid-server-j5fwnY8C1ORPs-NLMVvdkvd9';
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -44,22 +44,28 @@ class OrderController extends Controller
         \Midtrans\Config::$isSanitized = true;
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
-        $price = $order->price;
+
+        // Cast the "price" value to float to ensure it's a numeric value
+        $price = (float) $request->price;
+        $amount = $price;
+
         $params = array(
             'transaction_details' => array(
-                // 'order_id' => rand(),
                 'order_id' => $order->id,
-                'gross_amount' => '1000000',
+                'gross_amount' => '3000000',
             ),
             'customer_details' => array(
                 'first_name' => $request->pembeli,
                 'phone' => $request->no_tlp,
-                // 'first_name' => 'budi',
-                // 'last_name' => 'pratama',
-                // 'email' => 'budi.pra@example.com',
-                // 'phone' => '08111222333',
+                // Add other customer details as needed
             ),
         );
+
+        // Continue with the API call and transaction details as before
+        // ...
+
+        // The rest of your code
+        // ...
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         return view('frontpage/cart.detail-cart', compact('snapToken', 'order'));
@@ -79,15 +85,6 @@ class OrderController extends Controller
         }
     }
 
-    // public function allOrder()
-    // {
-    //     $data = [
-    //         'title' => 'Orders | PBL-APP',
-    //         'order' => Order::latest()->get(),
-    //     ];
-    //     return view('dashboard.admin.orders.order-all', $data);
-    // }
-
     public function allOrder()
     {
         $data = [
@@ -98,9 +95,37 @@ class OrderController extends Controller
         return view('dashboard.admin.orders.order-all', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // FUNGSI UNTUK MENCETAK DATA ORDER PER BULANNYA BY ADMIN
+    public function cetakLaporanOrder($tahun, $bulan)
+    {
+        // Konversi tahun dan bulan menjadi format Carbon
+        $tanggal = Carbon::create($tahun, $bulan, 1);
+        $order = Order::orderBy('created_at', 'desc')
+            ->whereYear('tanggal', $tanggal->year)
+            ->whereMonth('tanggal', $tanggal->month)
+            ->get();
+
+        // Generate the PDF using the view
+        $html = view('dashboard.admin.orders.laporan-order', compact('order', 'tanggal'))->render();
+
+        // Membuat instance Dompdf
+        $dompdf = new Dompdf();
+
+        // Memuat HTML ke Dompdf
+        $dompdf->loadHtml($html);
+
+        // Mengatur ukuran dan orientasi kertas
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render HTML ke PDF
+        $dompdf->render();
+
+        // Menghasilkan file PDF dan mengirimkan ke browser
+        $dompdf->stream('laporan-order.pdf', ['Attachment' => false]);
+    }
+
+
+
     // public function store(Request $request)
     // {
     //     $validator = Validator::make($request->all(), [
@@ -156,11 +181,22 @@ class OrderController extends Controller
     }
 
     // UPDATE STATUS PENGIRIMAN PRODUK BY ADMIN
-    function status_pengiriman($id)
+    public function status_pengiriman($id)
     {
-        $status_pengiriman = Order::find($id);
-        $status_pengiriman->status_pengiriman = 'Terkirim';
-        $status_pengiriman->save();
+        $order = Order::find($id);
+        $order->status_pengiriman = 'Terkirim';
+        $order->save();
+
+        // Memastikan alamat email penerima tidak kosong sebelum mengirim email
+        if (!empty($order->email)) {
+            Mail::to($order->email)->send(new SendEmail($order));
+        } else {
+            // Jika alamat email penerima kosong, lakukan tindakan yang sesuai
+            // Misalnya, Anda bisa menampilkan pesan error atau melakukan tindakan lain sesuai kebutuhan.
+            // Contoh:
+            return redirect()->back()->with('error', 'Alamat email penerima kosong.');
+        }
+
         return redirect()->route('manage_order.all')->with('success', 'Product Aplikasi Telah Terkirim Via E-Mail');
     }
 

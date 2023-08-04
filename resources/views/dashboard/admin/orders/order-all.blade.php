@@ -8,26 +8,25 @@
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="" class="btn btn-primary shadow-md mr-2">Cetak Data Order</a>
-            <div class="dropdown">
-                <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
-                </button>
-                <div class="dropdown-menu w-40">
-                    <ul class="dropdown-content">
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to Excel </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export to PDF </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="hidden md:block mx-auto text-slate-500"></div>
+            {{-- <a href="" class="btn btn-primary shadow-md mr-2">Cetak Data Order</a> --}}
+            <form method="GET" id="filterForm">
+                <select class="btn btn-primary shadow-md mr-2" name="bulan" id="bulan">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">Maret</option>
+                    <option value="4">April</option>
+                    <option value="5">Mei</option>
+                    <option value="6">Juni</option>
+                    <option value="7">Juli</option>
+                    <option value="8">Agustus</option>
+                    <option value="9">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                    <input type="text" name="tahun" id="tahun" placeholder="Input Tahun">
+                    <button type="submit" class="btn btn-primary shadow-md ml-2 bg-green-500" target="_blank">Cetak Data Order</button>
+                </form>
         </div>
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -46,34 +45,34 @@
                 </thead>
                 <tbody>
                     @forelse ($order as $item)
-                        <tr class="intro-x">
-                            <td class="text-center w-40"> {{ $loop->iteration }} </td>
-                            <td class="text-center w-40">{{ $item->pembeli }} </td>
-                            <td class="text-center">{{ $item->name }}</td>
-                            <td class="text-center">Rp. {{ $item->price }}</td>
-                            <td class="text-center">{{ $item->tanggal }}</td>
-                            <td class="text-center">{{ $item->status }}</td>
-                            <td class="text-center">
-                                <div class="flex items-center">
-                                    <span>{{ $item->status_pengiriman }}</span>
-                                    <a class="flex items-center ml-3 toggle-icon" href="{{ route('status_pengiriman', ['order' => $item]) }}">
-                                        <i data-lucide="check-square" class="w-4 h-4 mr-1 icon"></i>
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="hidden">{{ $item->users_id }}</td>
-                            <td class="table-report__action w-56">
-                                <div class="flex justify-center items-center">
-                                    <a class="flex items-center mr-3" href="{{ route('manage_order.detail', ['order' => $item]) }}"> <i data-lucide="eye" class="w-4 h-4 mr-1"></i> Detail </a>
-                                    {{-- <a class="flex items-center mr-3" href="{{ route('manage_order.update', ['order' => $item]) }}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a> --}}
-                                    <form method="POST" action="{{ route('manage_order.delete', ['order'=>$item]) }}">
-                                        <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{$item}})"><i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete</button>
-                                        @method('DELETE')
-                                        {{ csrf_field() }} 
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>   
+                    <tr class="intro-x">
+                        <td class="text-center w-40"> {{ $loop->iteration }} </td>
+                        <td class="text-center w-40">{{ $item->pembeli }} </td>
+                        <td class="text-center">{{ $item->name }}</td>
+                        <td class="text-center">Rp. {{ $item->price }}</td>
+                        <td class="text-center">{{ date('d F Y', strtotime($item->tanggal)) }}</td>
+                        <td class="text-center">{{ $item->status }}</td>
+                        <td class="text-center">
+                            <div class="flex items-center">
+                                <span>{{ $item->status_pengiriman }}</span>
+                                <a class="flex items-center ml-3 toggle-icon" href="{{ route('status_pengiriman', ['order' => $item]) }}">
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1 icon"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td class="hidden">{{ $item->users_id }}</td>
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center mr-3" href="{{ route('manage_order.detail', ['order' => $item]) }}"> <i data-lucide="eye" class="w-4 h-4 mr-1"></i> Detail </a>
+                                {{-- <a class="flex items-center mr-3" href="{{ route('manage_order.update', ['order' => $item]) }}"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a> --}}
+                                <form method="POST" action="{{ route('manage_order.delete', ['order'=>$item]) }}">
+                                    <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal" onclick="deleteModalHandler({{$item}})"><i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete</button>
+                                    @method('DELETE')
+                                    {{ csrf_field() }} 
+                                </form>
+                            </div>
+                        </td>
+                    </tr>  
                     @empty
                         <tr>
                             <td class="text-center text-muted" colspan="8">No Data</td>
@@ -91,35 +90,7 @@
         </div>
         <!-- END: Pagination -->
     </div>
-    <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="delete-confirmation-modal" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="p-5 text-center">
-                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i> 
-                        <div class="text-3xl mt-5">Are you sure?</div>
-                        <div class="text-slate-500 mt-2">
-                            Do you really want to delete these records? 
-                            <br>
-                            This process cannot be undone.
-                        </div>
-                    </div>
-                    <div class="px-5 pb-8 flex justify-center items-center">
-                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                        <form id="deleteItem" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" value="" id="delete_route_input">
-                            <button type="submit" class="flex items-center btn btn-danger w-24 text-danger"><i
-                                    data-lucide="trash-2"
-                                    class="w-4 h-4 mr-1"></i>Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- ... Konten lainnya -->
 @endsection
 @section('script')
    <script src="{{ asset('dist/js/view/manage-order/order.js') }}"></script> 
@@ -138,5 +109,29 @@
             // Misalnya, Anda dapat menggunakan AJAX untuk melakukan beberapa operasi server-side.
         });
     });
+</script>
+
+<!-- Tambahkan script JavaScript untuk cetak laporan -->
+<script>
+    // Tangkap elemen form
+    const filterForm = document.getElementById('filterForm');
+
+    // Tangkap elemen select bulan dan tahun
+    const bulanSelect = document.getElementById('bulan');
+    const tahunInput = document.getElementById('tahun');
+
+    // Tambahkan event listener untuk mengirimkan permintaan cetak laporan
+    filterForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Ambil nilai bulan dan tahun yang dipilih
+    const bulan = bulanSelect.value;
+    const tahun = tahunInput.value;
+
+    // Kirim permintaan cetak laporan dengan parameter bulan dan tahun
+    window.open('{{ route('cetakLaporanOrder', ['tahun' => 'tahun_value', 'bulan' => 'bulan_value']) }}'
+        .replace('tahun_value', tahun)
+        .replace('bulan_value', bulan), '_blank');
+});
 </script>
 @endsection

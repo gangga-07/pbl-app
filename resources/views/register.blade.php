@@ -99,18 +99,18 @@
                                 </div> --}}
                             </div>
                             <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
-                                <div class="flex items-center mr-auto">
+                                {{-- <div class="flex items-center mr-auto">
                                     <input id="redirect_login" name="redirect_login" type="checkbox"
                                         class="form-check-input border mr-2">
                                     <label class="cursor-pointer select-none" for="redirect_login">Login Dirrectly</label>
-                                </div>
-                                {{-- <a href="">Forgot Password?</a> --}}
+                                </div> --}}
+                                <a href="{{route ('password.request') }}">Forgot Password?</a>
                             </div>
                             <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                                 <button type="submit"
                                     class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Register</button>
-                                <a href="{{ route('login') }}"
-                                    class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Login</a>
+                                {{-- <a href="{{ route('login') }}"
+                                    class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Login</a> --}}
                             </div>
                             <div class="intro-x mt-10 text-slate-600 dark:text-slate-500 text-center xl:text-left"> By
                                 signin up, you agree to our <a class="text-primary dark:text-slate-200" href="">Terms

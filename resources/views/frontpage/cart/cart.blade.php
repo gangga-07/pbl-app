@@ -118,11 +118,12 @@
                                                                     <td class="text-right">
                                                                         <input type="text-right" name="price" value="{{number_format($data->price,0,",",".")}}" id="" class="form-control">
                                                                     </td>
-                                                                </td>
                                                                     <td class="text-right">
                                                                         <input type="text" name="price" value="{{number_format($data->price,0,",",".")}}" id="" class="form-control">
                                                                     </td>
-                                                                </tr>
+                                                                    {{-- <td class="text-right">
+                                                                        <input type="hidden" name="youtube_url" value="{{$data->youtube_url}}" id="" class="form-control">
+                                                                    </td> --}}
                                                         </tbody>
                                                         {{-- <tfoot>
                                                             <tr>

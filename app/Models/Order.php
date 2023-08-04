@@ -17,4 +17,10 @@ class Order extends Model
     {
         return $this->hasMany(User::class, 'users_id');
     }
+
+    // Definisikan relasi dengan model Product
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'products_id');
+    }
 }

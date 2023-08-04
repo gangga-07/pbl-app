@@ -103,7 +103,7 @@ class ProductController extends Controller
             'description' => $validated['description'],
         ]);
         if ($created_product) {
-            return redirect()->route('manage_product.all')->with('success', 'New Category Successfully Added');
+            return redirect()->route('manage_product.all')->with('success', 'New Product Successfully Added');
         }
         return redirect()->back()->with('error', 'Error Occured, Please Try Again');
     }

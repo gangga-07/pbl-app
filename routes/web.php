@@ -57,6 +57,8 @@ use function PHPUnit\Framework\callback;
 Route::get('detail-cart/{id}', [OrderController::class, 'index']);
 Route::post('/detail-cart', [OrderController::class, 'checkout']);
 Route::get('/dashboard/all-order', [OrderController::class, 'allOrder'])->name('manage_order.all');
+// Route untuk melakukan filter berdasarkan bulan yang dipilih
+Route::get('/manage_order/filter_by_month', [OrderController::class, 'filterByMonth'])->name('manage_order.filter_by_month');
 Route::get('/dashboard/order/{order:id}', [OrderController::class, 'detailOrder'])->name('manage_order.detail');
 // Route::get('/dashboard/order/{order:id}/update', [OrderController::class, 'updateOrder'])->name('manage_order.update');
 Route::get('/update/{order}', [OrderController::class, 'updateOrder'])->name('manage_order.update');
@@ -65,6 +67,7 @@ Route::patch('/dashboard/order/{order:id}', [OrderController::class, 'patchOrder
 // Route::delete('/dashboard/order/{order:id}/delete', [OrderController::class], 'deleteOrder')->name('manage_order.delete');
 Route::delete('/delete/{order}', [OrderController::class, 'delete'])->name('manage_order.delete');
 Route::get('status_pengiriman/{order}', [OrderController::class, 'status_pengiriman'])->name('status_pengiriman');
+Route::get('laporan-order/{tahun}/{bulan}', [OrderController::class, 'cetakLaporanOrder'])->name('cetakLaporanOrder');
 
 //ORDER UNTUK DI TAMPILAN USER ** ORDER UNTUK DI TAMPILAN USER//
 Route::get('/frontpage/my-all-order', [OrderController::class, 'myallOrder'])->name('manage_my_order.all');

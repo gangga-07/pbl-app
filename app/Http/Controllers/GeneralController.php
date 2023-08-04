@@ -64,13 +64,14 @@ class GeneralController extends Controller
     public function product_all()
     {
         $product = Product::all();
+        $category = Category::latest()->get();
         $data = [
             'title' => 'Product All | PBL-APP',
             // 'products' => Product::first()->get(),
             'categories' => Category::first()->get()
         ];
         // dd($data->toArray());
-        return view('frontpage.product.product-all', $data, compact('product'));
+        return view('frontpage.product.product-all', $data, compact('product', 'category'));
     }
     public function ecommerce_cat()
     {

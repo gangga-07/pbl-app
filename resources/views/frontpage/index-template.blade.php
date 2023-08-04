@@ -35,29 +35,6 @@
 					</a>
 				</div>
 				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="style/img/banner11.jpg" alt="">
-						<div class="banner-caption text-center">
-							<h2 class="white-color">NEW COLLECTION</h2>
-						</div>
-					</a>
-				</div>
-				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-					<a class="banner banner-1" href="#">
-						<img src="style/img/banner12.jpg" alt="">
-						<div class="banner-caption text-center">
-							<h2 class="white-color">NEW COLLECTION</h2>
-						</div>
-					</a>
-				</div>
-				<!-- /banner -->
-
 			</div>
 			<!-- /row -->
 		</div>
@@ -85,7 +62,7 @@
 				<!-- banner -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="banner banner-2">
-						<img src="style/img/baner1.jpg" alt="">
+						<img src="style/img/side-produk.png" alt="">
 						<div class="banner-caption">
 							{{-- <h2 class="white-color">NEW<br>COLLECTION</h2> --}}
 							{{-- <button class="primary-btn">Shop Now</button> --}}
@@ -158,10 +135,7 @@
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single product-hot">
 						<div class="product-thumb">
-							{{-- <div class="product-label">
-								<span class="sale">-20%</span>
-							</div>
-							<ul class="product-countdown">
+							{{-- <ul class="product-countdown">
 								<li><span>00 H</span></li>
 								<li><span>00 M</span></li>
 								<li><span>00 S</span></li>
@@ -233,89 +207,6 @@
 							@endforeach
 							
 							<!-- /Product Single -->
-
-							<!-- Product Single 2 -->
-							{{-- <div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span class="sale">-20%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-									<img src="style/img/image.jpg" alt="">
-								</div>
-								<div class="product-body">
-									<h3 class="product-price">Rp 1.000.000 <del class="product-old-price">Rp 2.000.000</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-									<div class="product-btns">
-										<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-										<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									</div>
-								</div>
-							</div> --}}
-							<!-- /Product Single -->
-
-							<!-- Product Single 3 -->
-							{{-- <div class="product product-single">
-								<div class="product-thumb">
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-									<img src="style/img/image.jpg" alt="">
-								</div>
-								<div class="product-body">
-									<h3 class="product-price">Rp 2.000.000</h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-									<div class="product-btns">
-										<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-										<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									</div>
-								</div>
-							</div> --}}
-							<!-- /Product Single -->
-
-							<!-- Product Single 4 -->
-							{{-- <div class="product product-single">
-								<div class="product-thumb">
-									<div class="product-label">
-										<span>New</span>
-										<span class="sale">-50%</span>
-									</div>
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-									<img src="style/img/image.jpg" alt="">
-								</div>
-								<div class="product-body">
-									<h3 class="product-price">Rp 1.000.000 <del class="product-old-price">Rp 2.000.000</del></h3>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o empty"></i>
-									</div>
-									<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-									<div class="product-btns">
-										<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-										<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-										<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									</div>
-								</div>
-							</div> --}}
-							<!-- /Product Single -->
-
 						</div>
 					</div>
 				</div>
@@ -337,10 +228,10 @@
 				<!-- banner -->
 				<div class="col-md-8">
 					<div class="banner banner-1">
-						<img src="style/img/image.jpg" alt="">
+						<img src="style/img/flayer1.png" alt="">
 						<div class="banner-caption text-center">
-							<h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span></h1>
-							<button class="primary-btn">Shop Now</button>
+							{{-- <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span></h1>
+							<button class="primary-btn">Shop Now</button> --}}
 						</div>
 					</div>
 				</div>
@@ -349,9 +240,9 @@
 				<!-- banner -->
 				<div class="col-md-4 col-sm-6">
 					<a class="banner banner-1" href="#">
-						<img src="style/img/image.jpg" alt="">
+						<img src="style/img/flayer2.png" alt="">
 						<div class="banner-caption text-center">
-							<h2 class="white-color">NEW PROGRAMS</h2>
+							{{-- <h2 class="white-color">NEW PROGRAMS</h2> --}}
 						</div>
 					</a>
 				</div>
@@ -360,9 +251,8 @@
 				<!-- banner -->
 				<div class="col-md-4 col-sm-6">
 					<a class="banner banner-1" href="#">
-						<img src="style/img/image.jpg" alt="">
+						<img src="style/img/flayer3.png" alt="">
 						<div class="banner-caption text-center">
-							<h2 class="white-color">NEW APPLICATION</h2>
 						</div>
 					</a>
 				</div>
