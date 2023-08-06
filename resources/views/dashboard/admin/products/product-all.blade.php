@@ -70,6 +70,7 @@
                         </div>
                     </td>
                     <td class="text-center">Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
+                    {{-- <td class="text-center">{{ $item->price }}</td> --}}
                     <td class="text-center">{{ $item->stock }}</td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">

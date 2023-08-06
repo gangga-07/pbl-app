@@ -32,6 +32,7 @@ class OrderController extends DomPDFPDF
 
     public function checkout(Request $request)
     {
+        // dd($request);
         // Continue with the checkout process if validation passes
         $request->request->add(['status' => 'unpaid']);
         $order = Order::create($request->all());
@@ -52,7 +53,7 @@ class OrderController extends DomPDFPDF
         $params = array(
             'transaction_details' => array(
                 'order_id' => $order->id,
-                'gross_amount' => '3000000',
+                'gross_amount' => $order->price,
             ),
             'customer_details' => array(
                 'first_name' => $request->pembeli,
@@ -75,12 +76,16 @@ class OrderController extends DomPDFPDF
     // HENDLE AFTER PEMBAYARAN
     public function callback(Request $request)
     {
-        $serverKey = config('midtrans.server_key');
-        $hashed = hash("shaS512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+        // dd($request->id);
+        // $serverKey = config('midtrans.server_key');
+        $serverKey = 'SB-Mid-server-j5fwnY8C1ORPs-NLMVvdkvd9';
+        $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
         if ($hashed == $request->signature_key) {
             if ($request->transaction_status == 'capture') {
                 $order = Order::find($request->order_id);
-                $order->update(['status' => 'Paid']);
+                $order->update([
+                    'status' => 'paid',
+                ]);
             }
         }
     }
