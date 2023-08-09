@@ -22,14 +22,20 @@
         th {
             background-color: #f2f2f2;
         }
+        h2 {
+            text-align: center; /* Set text alignment to center */
+        }
+        .text-center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h2>All Order</h2>
+    <h2>Laporan Order Bulanan</h2>
     <table>
         <thead>
             <tr>
-                <th>No.</th>
+                <th>NO</th>
                 <th>PEMBELI</th>
                 <th>PRODUK</th>
                 <th>HARGA</th>
@@ -39,16 +45,20 @@
             </tr>
         </thead>
         <tbody>
+            <?php $totalPrice = 0; ?>
             @forelse ($order as $item)
+            @if ($item->status === 'paid' && $item->status_pengiriman === 'Terkirim')
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->pembeli }}</td>
                 <td>{{ $item->name }}</td>
-                <td>Rp. {{ $item->price }}</td>
+                <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
                 <td>{{ date('d F Y', strtotime($item->tanggal)) }}</td>
-                <td>{{ $item->status }}</td>
-                <td>{{ $item->status_pengiriman }}</td>
+                <td class="text-center">{{ $item->status }}</td>
+                <td class="text-center">{{ $item->status_pengiriman }}</td>
             </tr>
+            <?php $totalPrice += $item->price; ?>
+            @endif
             @empty
             <tr>
                 <td colspan="7">No Data</td>
@@ -56,5 +66,6 @@
             @endforelse
         </tbody>
     </table>
+    <p><strong>Total Pembelian Bulan {{ date('F', strtotime($item->tanggal)) }}: Rp. {{ number_format($totalPrice, 0, ',', '.') }}</strong></p>
 </body>
 </html>

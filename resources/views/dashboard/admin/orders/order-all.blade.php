@@ -27,6 +27,17 @@
                     <input type="text" name="tahun" id="tahun" placeholder="Input Tahun">
                     <button type="submit" class="btn btn-primary shadow-md ml-2 bg-green-500" target="_blank">Cetak Data Order</button>
                 </form>
+                <form action="{{ route('manage_order.all') }}" method="get">
+                    <div class="flex justify-center items-center ml-72">
+                        <div class="flex">
+                            <input type="text" name="search" class="form-control w-56 box pr-10" style="border-top-right-radius: 0!important;
+                                border-bottom-right-radius: 0!important;" placeholder="Search...">
+                            <button type="submit" class="bg-[#2d2d2d]" style="border-top-right-radius: 0.25rem!important;
+                                border-bottom-right-radius: 0.25rem!important;"><i class="w-4 h-4 mx-3 text-white rounded-sm"  data-lucide="search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
         </div>
         <!-- BEGIN: Data List -->
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
@@ -133,5 +144,32 @@
         .replace('tahun_value', tahun)
         .replace('bulan_value', bulan), '_blank');
 });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Function to handle the click event for the icon
+        $(".toggle-icon").on("click", function (e) {
+            // ... Skrip toggle-icon ...
+        });
+
+        // Function for AJAX search
+        $("#searchInput").on("keyup", function () {
+            const keyword = $(this).val();
+            $.ajax({
+                url: "{{ route('search_order') }}", // Ganti dengan URL endpoint pencarian Anda
+                method: "GET",
+                data: { keyword: keyword },
+                success: function (response) {
+                    $("#tableBody").html(response);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        // ... Skrip lainnya ...
+    });
 </script>
 @endsection

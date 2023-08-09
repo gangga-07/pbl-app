@@ -36,6 +36,9 @@
                 </div>
                 <!-- END: Content -->
             </div>
+            <!-- BEGIN: JS Assets-->
+        <script src="{{ asset('dist/js/app.js') }}"></script>
+        <!-- END: JS Assets-->
         </div>
     </div>
 @endsection
@@ -55,3 +58,4 @@
     </script>
     @yield('script')
 @endsection
+

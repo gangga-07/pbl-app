@@ -83,12 +83,11 @@
 										<span class="sale">-20%</span>
 									</div>
 									 --}}
-									<a class="main-btn quick-view"><i class="fa fa-search-plus" ></i> Quick view</a>
+									{{-- <a class="main-btn quick-view"><i class="fa fa-search-plus" ></i> Quick view</a> --}}
 									{{-- <img src="style/img/image.jpg" alt=""> --}}
 									<img class="featured-img" src="{{asset($item->images->count() ? 'storage/' . $item->images->first()->src : 'dist/images/default.jpg') }}" alt="">
 								</div>	
 								<div class="product-body">
-									{{-- <h3 class="product-price">Rp 500.000 <del class="product-old-price">Rp 1.000.000</del></h3> --}}
 									<h3 class="product-price">Rp. {{number_format($item->price,0,",",".")}}</h3>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
@@ -132,14 +131,9 @@
 				<!-- section title -->
 
 				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
+				{{-- <div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single product-hot">
 						<div class="product-thumb">
-							{{-- <ul class="product-countdown">
-								<li><span>00 H</span></li>
-								<li><span>00 M</span></li>
-								<li><span>00 S</span></li>
-							</ul> --}}
 							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
 							<img src="style/img/image.jpg" alt="">
 						</div>
@@ -160,11 +154,11 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 				<!-- /Product Single -->
 
 				<!-- Product Slick BAGIAN 2 -->
-				<div class="col-md-9 col-sm-6 col-xs-6">
+				<div class="col-md-12 col-sm-6 col-xs-6">
 					<div class="row">
 						<div id="product-slick-2" class="product-slick">
 							<!-- Product Single 1 -->
@@ -172,17 +166,9 @@
 								@foreach ($product as $item)		
 							<div class="product product-single">
 								<div class="product-thumb">
-									{{-- <div class="product-label">
-										<span>New</span>
-										<span class="sale">-20%</span>
-									</div>
-									 --}}
-									<a class="main-btn quick-view"><i class="fa fa-search-plus" ></i> Quick view</a>
-									{{-- <img src="style/img/image.jpg" alt=""> --}}
 									<img class="featured-img" src="{{asset($item->images->count() ? 'storage/' . $item->images->first()->src : 'dist/images/default.jpg') }}" alt="">
 								</div>	
 								<div class="product-body">
-									{{-- <h3 class="product-price">Rp 500.000 <del class="product-old-price">Rp 1.000.000</del></h3> --}}
 									<h3 class="product-price">Rp. {{number_format($item->price,0,",",".")}}</h3>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
@@ -198,9 +184,6 @@
 										<a class="main-btn icon-btn" href="{{ route('product-detail', ['product' => $item]) }}"><i class="fa fa-eye"></i></a>
 										<a class="main-btn icon-btn" href="{{ route('cartlist', ['product_id' => $item->id]) }}"><i class="fa fa-shopping-cart"></i></a>
 										<a class="primary-btn add-to-cart" href="{{ url('detail-cart/'.$item->product_code) }}"><i class=""></i> Checkout</a>
-										{{-- <button type="submit" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart </button> --}}
-									
-										{{-- <a class="primary-btn add-to-cart" href="{{ route('whislist', ['product' => $item]) }}"> <i data-lucide="eye" class="fa fa-shopping-cart"></i> Detail </a> --}}
 									</div>
 								</div>
 							</div>

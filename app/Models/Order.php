@@ -23,4 +23,21 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class, 'products_id');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        // $query->when($filters['category'] ?? false, function ($query, $category) {
+        //     return $query->whereHas('category', function ($query) use ($category) {
+        //         $query->where('name', $category);
+        //     });
+        // });
+
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('status', 'like', '%' . $search . '%')
+                ->orWhere(function ($query) use ($search) {
+                    $query->where('pembeli', 'like', '%' . $search . '%')
+                        ->orWhere('name', 'like', '%' . $search . '%');
+                });
+        });
+    }
 }

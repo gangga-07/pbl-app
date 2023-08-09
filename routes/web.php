@@ -65,9 +65,11 @@ Route::get('/update/{order}', [OrderController::class, 'updateOrder'])->name('ma
 Route::put('/update/{order}', [OrderController::class, 'saveUpdate'])->name('manage_order.save_update');
 Route::patch('/dashboard/order/{order:id}', [OrderController::class, 'patchOrder'])->name('manage_order.patch');
 // Route::delete('/dashboard/order/{order:id}/delete', [OrderController::class], 'deleteOrder')->name('manage_order.delete');
-Route::delete('/delete/{order}', [OrderController::class, 'delete'])->name('manage_order.delete');
+Route::delete('dashboard/delete/{order}', [OrderController::class, 'delete'])->name('manage_order.delete');
 Route::get('status_pengiriman/{order}', [OrderController::class, 'status_pengiriman'])->name('status_pengiriman');
 Route::get('laporan-order/{tahun}/{bulan}', [OrderController::class, 'cetakLaporanOrder'])->name('cetakLaporanOrder');
+Route::get('/search/order', [OrderController::class], 'search')->name('search_order');
+
 
 //ORDER UNTUK DI TAMPILAN USER ** ORDER UNTUK DI TAMPILAN USER//
 Route::get('/frontpage/my-all-order', [OrderController::class, 'myallOrder'])->name('manage_my_order.all');
@@ -76,6 +78,8 @@ Route::get('/frontpage/invoice/{order:id}', [OrderController::class, 'invoice'])
 // Route::get('/invoice/{orderId}', [OrderController::class, 'printInvoice'])->name('print.invoice');
 Route::get('print/invoice/{id}', [OrderController::class, 'printInvoice'])->name('print.invoice');
 Route::post('/orders/{id}/send_invoice', [OrderController::class, 'sendInvoice'])->name('send_invoice');
+
+
 
 
 
@@ -168,7 +172,7 @@ Route::middleware(['auth'])->controller(UsersController::class)->group(function 
     // Route::post('/register', 'attemptRegister')->name('attempt_register')->middleware('guest');
     // Route::get('/dashboard/profile/detail/{user:email}', 'detailProfile')->name('profile.detail')->middleware(['auth', 'admin']);
     Route::delete('/dashboard/user/{user:email}', 'deleteUser')->name('manage_user.delete')->middleware(['auth', 'only_admin']);
-    Route::delete('/dashboard/user/{user:id}/delete', 'deleteUser')->name('manage_user.delete');
+    // Route::delete('/dashboard/user/{user:id}/delete', 'deleteUser')->name('manage_user.delete');
 
     //ROUTE UNTUK DI DASHBOARD USER [FOLDER MY-ACCOUNT->CONTROLLER USERS]
     Route::get('/my-account', 'my_account')->name('my-account')->middleware('auth');

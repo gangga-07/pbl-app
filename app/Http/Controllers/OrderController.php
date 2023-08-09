@@ -94,11 +94,13 @@ class OrderController extends DomPDFPDF
     {
         $data = [
             'title' => 'All Order | PBL-APP',
-            'order' => Order::latest()->paginate(10), // Menggunakan model untuk mengambil data order secara terpaginasi
+            // 'order' => Order::latest()->paginate(10), // Menggunakan model untuk mengambil data order secara terpaginasi
+            'order' => Order::latest()->filter(request(['search']))->paginate(10)->withQueryString(),
         ];
 
         return view('dashboard.admin.orders.order-all', $data);
     }
+
 
     // FUNGSI UNTUK MENCETAK DATA ORDER PER BULANNYA BY ADMIN
     public function cetakLaporanOrder($tahun, $bulan)
@@ -214,6 +216,7 @@ class OrderController extends DomPDFPDF
         return redirect()->back()->with('success', 'The Order Successfully Deleted');
     }
 
+
     public function detailOrder(Order $order)
     {
         $data = [
@@ -286,6 +289,9 @@ class OrderController extends DomPDFPDF
 
         return redirect()->route('manage_order.all')->with('success', 'Order updated successfully.');
     }
+
+
+
 
     // ---------------------------------------------------------------------------------------------------//
     //UNTUK DITAMPILAN ORDER USER --**-- UNTUK DITAMPILAN ORDER USER//

@@ -50,7 +50,7 @@
                             <label for="status" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Status Pengiriman Produk</label>
                             <p class="basis-2/3 text-sm mb-2">: {{ $order->status_pengiriman }}</p>
                         </div>
-                        <div>
+                        {{-- <div>
                             <form action="{{ route('send_invoice', $order->id) }}" method="POST">
                                 @csrf
                                 <div class="hidden">
@@ -58,7 +58,7 @@
                                 </div>
                                 <input type="submit" value="Kirim Invoice">
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

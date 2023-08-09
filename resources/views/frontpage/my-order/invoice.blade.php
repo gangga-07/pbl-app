@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Invoice-pbl</title>
+    <title>Invoice-Order</title>
     <style>
         body{
             font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
@@ -74,10 +74,11 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="text-right">
+                                {{-- text-right --}}
+                                <div class="">
                                     <b>Invoice</b> <br>
-                                    <b>Inv-{{ $order->id }}-PBL</b><br>
-                                    {{ $order->status }}
+                                    {{ $order->id }}-{{ date('Ymd', strtotime($order->tanggal)) }}<br>
+                                    {{ $order->status_pengiriman }}
                                 </div>
                             </td>
                         </tr>
@@ -101,15 +102,15 @@
                                 <td>1</td>
                                 <td>{{ $order->name }}</td>
                                 <td>{{ $order->status }}</td>
-                                <td class="text-right">Rp. {{ $order->price }}</td>
+                                <td class="text-right">Rp. {{ number_format($order->price, 0, ',', '.') }}</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right">Sub Total</td>
-                                <td class="text-right"><strong>Rp. {{ $order->price }}</strong></td>
+                                <td class="text-right"><strong>Rp. {{ number_format($order->price, 0, ',', '.') }}</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right">Total Payable</td>
-                                <td class="text-right"><strong>Rp. {{ $order->price }}</strong></td>
+                                <td class="text-right"><strong>Rp. {{ number_format($order->price, 0, ',', '.') }}</strong></td>
                             </tr>
                         </tbody>
                     </table>
