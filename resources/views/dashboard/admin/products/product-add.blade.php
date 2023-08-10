@@ -69,6 +69,14 @@
                                 placeholder="Input YouTube URL" value="{{ old('youtube_url') }}">
                         </div>
                         <div class="mt-3">
+                            <label for="download_url" class="form-label">Download URL</label>
+                            @error('download_url')
+                                <small class="text-xs text-red-500 ml-1">{{ '*' . $message }}</small>
+                            @enderror
+                            <input id="download_url" name="download_url" type="text" class="form-control"
+                                placeholder="Input YouTube URL" value="{{ old('download_url') }}">
+                        </div>
+                        <div class="mt-3">
                             <label for="description" class="form-label">Description</label>
                             @error('description')
                                 <small class="text-xs text-red-500 ml-1">{{'*'.$message }}</small>

@@ -87,6 +87,7 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'youtube_url' => 'required|string',
+            'download_url' => 'required|string',
             'description' => 'nullable|string',
         ]);
         if ($validator->fails()) {
@@ -100,6 +101,7 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'stock' => $validated['stock'],
             'youtube_url' => $validated['youtube_url'],
+            'download_url' => $validated['download_url'],
             'description' => $validated['description'],
         ]);
         if ($created_product) {
@@ -132,6 +134,7 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'youtube_url' => 'required|string',
+            'download_url' => 'required|string',
             'description' => 'nullable|string',
         ]);
         if ($validator->fails()) {
@@ -145,6 +148,7 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'stock' => $validated['stock'],
             'youtube_url' => $validated['youtube_url'],
+            'download_url' => $validated['download_url'],
             'description' => $validated['description'],
         ]);
         if ($updated_product) {

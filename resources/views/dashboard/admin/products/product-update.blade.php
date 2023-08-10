@@ -105,6 +105,13 @@
                         <input type="text" name="youtube_url" id="youtube_url" class="form-control" placeholder="Input YouTube URL" value="{{ old('youtube_url')??$product->youtube_url }}">
                     </div>
                     <div class="mt-3">
+                        <label for="download_url" class="form-label mt-2">Demo Product</label>
+                        @error('download_url')
+                        <small class="text-xs text-red-500 ml-1">{{ '*' . $message }}</small>
+                        @enderror
+                        <input type="text" name="download_url" id="download_url" class="form-control" placeholder="Input Download URL" value="{{ old('download_url')??$product->download_url }}">
+                    </div>
+                    <div class="mt-3">
                         <label for="description" class="form-label">Description</label>
                         @error('description')
                             <small class="text-xs text-red-500 ml-1">{{'*'.$message }}</small>

@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
     protected $primaryKey = 'product_code';
     protected $keyType = 'string';
-    protected $fillable = ['name', 'product_code', 'category_id', 'price', 'stock', 'youtube_url', 'description'];
+    protected $fillable = ['name', 'product_code', 'category_id', 'price', 'stock', 'youtube_url', 'download_url', 'description'];
 
     // instant value
     public static function popular()

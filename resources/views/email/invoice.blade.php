@@ -68,7 +68,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Pesanan Produk Anda telah dikonfirmasi!</h1>
+            {{-- <h1>Pesanan Produk Anda telah dikonfirmasi!</h1> --}}
+            <h1>Your Product Order has been Confirmed!</h1>
         </div>
         <div class="content">
             <div class="col-md-12">
@@ -158,10 +159,10 @@
                 </div>
                 <br><br><br>
                 <div>
-                    download product here
-                </div>
+                    Download product: <a href="{{ $order->download_url }}">Download Here</a>
+                </div>                
                 <div>
-                    <small><small>NOTE: This is system generate invoice no need of signature</small></small>
+                    <small><small>NOTE: This is system generate invoice no need of signature and Please keep this link confidential and do not share it with others</small></small>
                 </div>
             </div>
         </div>

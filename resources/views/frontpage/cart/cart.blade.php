@@ -103,6 +103,7 @@
                                             <div class="panel-body">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered">
+                                                        <input type="hidden" name="download_url" value="{{$data->download_url}}" id="" class="form-control">
                                                         <thead>
                                                             <tr>
                                                                 {{-- <td class="text-center">Image</td> --}}
@@ -121,9 +122,6 @@
                                                                     <td class="text-right">
                                                                         <input type="text" name="price" value="{{$data->price}}" id="" class="form-control">
                                                                     </td>
-                                                                    {{-- <td class="text-right">
-                                                                        <input type="hidden" name="youtube_url" value="{{$data->youtube_url}}" id="" class="form-control">
-                                                                    </td> --}}
                                                         </tbody>
                                                         {{-- <tfoot>
                                                             <tr>

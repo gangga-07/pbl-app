@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $table = 'order';
     // protected $timestamps = false;
-    protected $fillable = ['pembeli', 'email', 'name', 'no_tlp', 'users_id', 'category_id', 'tanggal', 'status', 'status_pengiriman', 'price'];
+    protected $fillable = ['pembeli', 'email', 'name', 'no_tlp', 'users_id', 'category_id', 'tanggal', 'status', 'status_pengiriman', 'price', 'download_url'];
 
     public function user()
     {

@@ -47,6 +47,10 @@
                             <label for="youtube_url" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Demo Product</label>
                             <a class="basis-2/3 text-sm mb-2" href="{{ $product->youtube_url }}" target="_blank">: Click Here</a>
                         </div>
+                        <div class="flex flex-row flex-none gap-2">
+                            <label for="download_url" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Download Product</label>
+                            <a class="basis-2/3 text-sm mb-2" href="{{ $product->download_url }}" target="_blank">: Click Here</a>
+                        </div>
                     </div>
                     {{-- <div class="md:flex basis-3/12">
                         <div class="box-content w-full h-fit p-4 border-2 rounded">
