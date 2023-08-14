@@ -301,7 +301,11 @@ class OrderController extends DomPDFPDF
         $user = Auth::user();
 
         // Mengambil semua order yang memiliki users_id yang sama dengan id user yang sedang login
-        $orders = Order::where('users_id', $user->name)->get();
+        // $orders = Order::where('users_id', $user->name)->get();
+        // Mengambil semua order yang memiliki users_id yang sama dengan id user yang sedang login dan status "paid"
+        $orders = Order::where('users_id', $user->name)
+            ->where('status', 'paid')
+            ->get();
 
         $data = [
             'title' => 'Orders | PBL-APP',
@@ -358,8 +362,6 @@ class OrderController extends DomPDFPDF
 
         return redirect()->route('manage_order.all')->with('success', 'Konfirmasi pesanan berhasil');
     }
-
-
 
 
     // public function softdelete(Order $order)

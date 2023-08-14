@@ -105,7 +105,7 @@
                         <input type="text" name="youtube_url" id="youtube_url" class="form-control" placeholder="Input YouTube URL" value="{{ old('youtube_url')??$product->youtube_url }}">
                     </div>
                     <div class="mt-3">
-                        <label for="download_url" class="form-label mt-2">Demo Product</label>
+                        <label for="download_url" class="form-label mt-2">Download Product</label>
                         @error('download_url')
                         <small class="text-xs text-red-500 ml-1">{{ '*' . $message }}</small>
                         @enderror
@@ -128,14 +128,14 @@
                                 <input type="file" name="images[]" multiple data-max_length="10" class="upload__inputfile">
                             </label>
                         </div>
-                        <div class="upload__img-wrap">
+                        {{-- <div class="upload__img-wrap">
                             @foreach ($product->images as $item)
                             <div class='upload__img-item'>
                                 <img src="{{ asset('storage/' . $item->src) }}" alt="Preview Image">
                                 <span class="upload__img-remove" onclick="removeImagePreview(this)">&times;</span>
                             </div>
                             @endforeach
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="text-right mt-5">
                         <a href="{{ route('manage_product.all') }}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
@@ -153,39 +153,39 @@
 <script src="{{ asset('dist/js/view/manage-product/product.js') }}"></script>
 <script>
     // Fungsi untuk menampilkan preview gambar saat update
-    function showImagePreview(input) {
-        if (input.files && input.files.length > 0) {
-            $('.upload__img-wrap').empty();
-            for (var i = 0; i < input.files.length; i++) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var imgItem = `<div class="upload__img-item">
-                                    <img src="${e.target.result}" alt="Preview Image">
-                                    <span class="upload__img-remove" onclick="removeImagePreview(this)">&times;</span>
-                                </div>`;
-                    $('.upload__img-wrap').append(imgItem);
-                }
-                reader.readAsDataURL(input.files[i]);
-            }
-        }
-    }
+    // function showImagePreview(input) {
+    //     if (input.files && input.files.length > 0) {
+    //         $('.upload__img-wrap').empty();
+    //         for (var i = 0; i < input.files.length; i++) {
+    //             var reader = new FileReader();
+    //             reader.onload = function(e) {
+    //                 var imgItem = `<div class="upload__img-item">
+    //                                 <img src="${e.target.result}" alt="Preview Image">
+    //                                 <span class="upload__img-remove" onclick="removeImagePreview(this)">&times;</span>
+    //                             </div>`;
+    //                 $('.upload__img-wrap').append(imgItem);
+    //             }
+    //             reader.readAsDataURL(input.files[i]);
+    //         }
+    //     }
+    // }
 
     // Fungsi untuk menghapus preview gambar
-    function removeImagePreview(element) {
-        $(element).parent().remove();
-    }
+    // function removeImagePreview(element) {
+    //     $(element).parent().remove();
+    // }
 
-    $(document).ready(function() {
-        // Panggil fungsi showImagePreview saat input file berubah
-        $('.upload__inputfile').on('change', function() {
-            showImagePreview(this);
-        });
+    // $(document).ready(function() {
+    //     // Panggil fungsi showImagePreview saat input file berubah
+    //     $('.upload__inputfile').on('change', function() {
+    //         showImagePreview(this);
+    //     });
 
-        // Menghapus gambar yang sudah ada
-        $('.upload__img-wrap .upload__img-remove').on('click', function() {
-            $(this).parent().remove();
-        });
-    });
+    //     // Menghapus gambar yang sudah ada
+    //     $('.upload__img-wrap .upload__img-remove').on('click', function() {
+    //         $(this).parent().remove();
+    //     });
+    // });
 
 </script>
 @endsection

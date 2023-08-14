@@ -36,7 +36,7 @@
                         </div>
                         <div class="flex flex-row flex-none gap-2">
                             <label for="tanggal" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Tanggal Pembelian</label>
-                            <p class="basis-2/3 text-sm mb-2">: {{ $order->tanggal }}</p>
+                            <p class="basis-2/3 text-sm mb-2">: {{ date('l, d F Y', strtotime($order->tanggal)) }}</p>
                         </div>
                         <div class="flex flex-row flex-none gap-2">
                             <label for="price" class="basis-1/3 capitalize tracking-wide text-sm text-black font-semibold mb-2">Harga</label>
